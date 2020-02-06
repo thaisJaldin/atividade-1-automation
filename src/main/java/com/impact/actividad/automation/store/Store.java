@@ -9,8 +9,8 @@ public class Store {
     private Map<String, Product> products;
 
     private static String CODE_OBLIGATORY = "Product code is obligatory.";
-    private static String CODE_NAME = "Product name is obligatory.";
-    private static String CODE_PRICE = "Product price is obligatory.";
+    private static String NAME_OBLIGATORY = "Product name is obligatory.";
+    private static String PRICE_OBLIGATORY = "Product price is obligatory.";
 
     public Store() {
         products = new HashMap<String, Product>();
@@ -26,11 +26,11 @@ public class Store {
         }
 
         if (null == name || name.isEmpty()) {
-            return CODE_NAME;
+            return NAME_OBLIGATORY;
         }
 
         if (null == price) {
-            return CODE_PRICE;
+            return PRICE_OBLIGATORY;
         }
 
         Product product = new Product();
@@ -64,8 +64,12 @@ public class Store {
             return CODE_OBLIGATORY;
         }
 
+        if (null == products.get(code)) {
+            return "Not exist product with code " + code + ", please first add New Product.";
+        }
+
         if (null == name || name.isEmpty()) {
-            return CODE_NAME;
+            return NAME_OBLIGATORY;
         }
 
         Product product = products.get(code);
@@ -80,8 +84,12 @@ public class Store {
             return CODE_OBLIGATORY;
         }
 
+        if (null == products.get(code)) {
+            return "Not exist product with code " + code + ", please first add New Product.";
+        }
+
         if (null == price) {
-            return CODE_PRICE;
+            return PRICE_OBLIGATORY;
         }
 
         Product product = products.get(code);
@@ -96,6 +104,10 @@ public class Store {
             return CODE_OBLIGATORY;
         }
 
+        if (null == products.get(code)) {
+            return "Not exist product with code " + code + ", please first add New Product.";
+        }
+
         if (null == quantity) {
             return "Quantity param is obligatory.";
         }
@@ -108,7 +120,7 @@ public class Store {
         product.setStock(stock - quantity);
         products.put(code, product);
 
-        return "Success Sell. You have " + stock + " unity of this product in stock.";
+        return "Success Sell. You have " + product.getStock() + " unity of this product in stock.";
     }
 
     public String getStockOfProduct(String code) {
